@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Simple Kotlin App</string>
-    <string name="welcome_message">Hello from Kotlin!</string>
-    <string name="button_text">Click Me!</string>
-</resources>
