@@ -9,18 +9,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Tally"
+        android:text="Create New Tracker"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/brown"
         android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/inputTallyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter tracker title"
         android:inputType="textCapWords"
+        android:textColor="@color/brown"
         android:layout_marginBottom="24dp"/>
 
     <LinearLayout
@@ -43,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:backgroundTint="@color/primary"/>
+            android:textColor="@color/medium_gray"
+            android:backgroundTint="@color/sand"/>
 
     </LinearLayout>
 

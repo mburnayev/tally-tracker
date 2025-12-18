@@ -10,14 +10,23 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TallyAdapter(private val tallies: MutableList<Tally>) : RecyclerView.Adapter<TallyAdapter.TallyViewHolder>() {
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+import androidx.constraintlayout.widget.ConstraintLayout
+
+class TallyAdapter(
+    private val tallies: MutableList<Tally>,
+    private val onDataChanged: () -> Unit
+) : RecyclerView.Adapter<TallyAdapter.TallyViewHolder>() {
 
     class TallyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val root: ConstraintLayout = view.findViewById(R.id.tallyItemRoot)
         val title: TextView = view.findViewById(R.id.tallyTitle)
         val count: EditText = view.findViewById(R.id.tallyCount)
         val btnIncrement: Button = view.findViewById(R.id.btnIncrement)
         val btnDecrement: Button = view.findViewById(R.id.btnDecrement)
         val btnReset: Button = view.findViewById(R.id.btnReset)
+        val btnDelete: TextView = view.findViewById(R.id.btnDelete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TallyViewHolder {
@@ -32,22 +41,36 @@ class TallyAdapter(private val tallies: MutableList<Tally>) : RecyclerView.Adapt
         holder.title.text = tally.title
         holder.count.setText(tally.count.toString())
 
+        // Handle delete button
+        holder.btnDelete.setOnClickListener {
+            val currentPosition = holder.adapterPosition
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                tallies.removeAt(currentPosition)
+                notifyItemRemoved(currentPosition)
+                notifyItemRangeChanged(currentPosition, tallies.size)
+                onDataChanged()
+            }
+        }
+
         // Handle buttons
         holder.btnIncrement.setOnClickListener {
             tally.count++
             holder.count.setText(tally.count.toString())
+            onDataChanged()
         }
 
         holder.btnDecrement.setOnClickListener {
             if (tally.count > 0) {
                 tally.count--
                 holder.count.setText(tally.count.toString())
+                onDataChanged()
             }
         }
 
         holder.btnReset.setOnClickListener {
             tally.count = 0
             holder.count.setText("0")
+            onDataChanged()
         }
 
         // Handle manual text editing
@@ -59,6 +82,16 @@ class TallyAdapter(private val tallies: MutableList<Tally>) : RecyclerView.Adapt
                 } else {
                     holder.count.setText(tally.count.toString())
                 }
+                onDataChanged()
+            }
+        }
+
+        // Clear focus when clicking outside
+        holder.root.setOnClickListener {
+            if (holder.count.hasFocus()) {
+                holder.count.clearFocus()
+                val imm = holder.root.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(holder.count.windowToken, 0)
             }
         }
     }
@@ -68,5 +101,6 @@ class TallyAdapter(private val tallies: MutableList<Tally>) : RecyclerView.Adapt
     fun addTally(tally: Tally) {
         tallies.add(tally)
         notifyItemInserted(tallies.size - 1)
+        onDataChanged()
     }
 }

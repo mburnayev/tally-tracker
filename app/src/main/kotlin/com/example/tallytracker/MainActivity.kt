@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Setup RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.tallyRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        adapter = TallyAdapter(tallies)
+        adapter = TallyAdapter(tallies) { saveTallies() }
         recyclerView.adapter = adapter
 
         // Setup Add Button
