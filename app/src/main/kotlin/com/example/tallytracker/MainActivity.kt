@@ -101,4 +101,21 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+
+    override fun dispatchTouchEvent(event: android.view.MotionEvent): Boolean {
+        if (event.action == android.view.MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = android.graphics.Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
 }

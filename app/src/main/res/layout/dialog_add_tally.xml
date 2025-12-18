@@ -13,6 +13,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/brown"
+        android:fontFamily="@font/visby_round_cf_bold"
         android:layout_marginBottom="16dp"/>
 
     <EditText
@@ -21,6 +22,8 @@
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
         android:textColor="@color/brown"
+        android:fontFamily="@font/visby_round_cf_bold"
+        android:maxLength="28"
         android:layout_marginBottom="24dp"/>
 
     <LinearLayout
@@ -35,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:textColor="@color/medium_gray"
+            android:fontFamily="@font/visby_round_cf_bold"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_marginEnd="8dp"/>
 
@@ -44,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:textColor="@color/medium_gray"
+            android:fontFamily="@font/visby_round_cf_bold"
             android:backgroundTint="@color/sand"/>
 
     </LinearLayout>

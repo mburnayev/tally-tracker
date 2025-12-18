@@ -38,7 +38,7 @@ class TallyAdapter(
     override fun onBindViewHolder(holder: TallyViewHolder, position: Int) {
         val tally = tallies[position]
         
-        holder.title.text = tally.title
+        holder.title.text = formatTitle(tally.title)
         holder.count.setText(tally.count.toString())
 
         // Handle delete button
@@ -102,5 +102,24 @@ class TallyAdapter(
         tallies.add(tally)
         notifyItemInserted(tallies.size - 1)
         onDataChanged()
+    }
+
+    private fun formatTitle(title: String): String {
+        if (title.length <= 14) return title
+        
+        // Find the last space within the first 14 characters
+        // We look at substring(0, 15) to include the 15th char if it's a space, 
+        // but actually we want to break *before* the 15th char if possible.
+        // Let's look at the first 15 chars and find the last space.
+        val limit = minOf(15, title.length)
+        val splitIndex = title.substring(0, limit).lastIndexOf(' ')
+        
+        return if (splitIndex != -1) {
+            // Replace that space with a newline
+            title.substring(0, splitIndex) + "\n" + title.substring(splitIndex + 1)
+        } else {
+            // If no space found, return original
+            title
+        }
     }
 }

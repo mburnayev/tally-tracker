@@ -19,8 +19,8 @@
         android:text="Tally Tracker"
         android:textColor="@android:color/white"
         android:textSize="32sp"
-        android:fontFamily="@font/visby_round"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="@font/visby_round_cf_bold" />
 
     <!-- List of Tallies -->
     <androidx.recyclerview.widget.RecyclerView
@@ -42,8 +42,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:text="+"
-        android:textColor="@android:color/medium_gray"
+        android:textColor="@color/medium_gray"
         android:textSize="36sp"
+        android:fontFamily="@font/visby_round_cf_bold"
         app:backgroundTint="@color/sand"
         app:cornerRadius="12dp"
         xmlns:app="http://schemas.android.com/apk/res-auto" />
